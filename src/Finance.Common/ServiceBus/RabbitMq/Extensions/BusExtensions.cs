@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using RawRabbit;
 using Finance.Common.Commands.Infertaces;
 using Finance.Common.Events.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using RawRabbit.Instantiation;
 
 namespace Finance.Common.ServiceBus.RabbitMq.Extensions
 {
@@ -20,7 +23,21 @@ namespace Finance.Common.ServiceBus.RabbitMq.Extensions
         ctx => ctx.UseSubscribeConfiguration(cfg => 
         cfg.FromDeclaredQueue(q => q.WithName(GetQueueName<TEvent>()))));
 
+        public static void AddRabbitMq(this IServiceCollection service, IConfiguration config)
+        {
+            var options = new RabbitMqOptions();
+            var section = config.GetSection("rabbitMq");
+            section.Bind(options);
+            var client = RawRabbitFactory.CreateSingleton(new RawRabbitOptions
+            {
+                ClientConfiguration = options
+            });
+
+            service.AddSingleton<IBusClient>(_ => client);
+        }
+
         private static string GetQueueName<T>() 
         => $"{Assembly.GetEntryAssembly().GetName()}/{typeof(T).Name}";
+        
     }
 }

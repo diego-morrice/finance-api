@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Finance.Common.Commands.Assets;
+using Finance.Common.Commands.Infertaces;
+using Finance.Common.ServiceBus.RabbitMq.Extensions;
+using Finance.Services.Assets.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +30,9 @@ namespace Finance.Services.Assets
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddRabbitMq(Configuration);
+            services.AddScoped<ICommandHandler<CreateAsset>,CreateAssetHandler>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

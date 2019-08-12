@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Finance.Common.Events.Assets;
+using Finance.Common.ServiceBus;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Finance.Api
 {
@@ -14,11 +9,11 @@ namespace Finance.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            ServiceHost.Create<Startup>(args)
+            .UseRabbitMq()
+            .SubscribeToEvent<AssetCreated>()
+            .Build()
+            .RunAsync();            
+        }       
     }
 }

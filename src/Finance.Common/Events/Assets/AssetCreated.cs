@@ -1,7 +1,10 @@
+using System;
 using Finance.Common.Events.Interfaces;
 
 namespace Finance.Common.Events.Assets {
-    public class AssetCreated : IEvent {       
+    public class AssetCreated : IEvent { 
+
+        public Guid Id;      
         public string Name { get; }
         public string Symbol { get; }
         public string Type { get; }
@@ -16,9 +19,10 @@ namespace Finance.Common.Events.Assets {
 
         }
 
-         public AssetCreated (string name, string symbol, string type, string market
+         public AssetCreated (Guid Id, string name, string symbol, string type, string market
          , string isin, string cusip, string underlying, string assetClass) {
 
+            this.Id = Id;
             this.Name = name;
             this.Symbol = symbol;
             this.Type = type;

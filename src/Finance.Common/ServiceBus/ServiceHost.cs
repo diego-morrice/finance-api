@@ -29,7 +29,8 @@ namespace Finance.Common.ServiceBus
 
             var webHostbuilder = WebHost.CreateDefaultBuilder(args)
             .UseConfiguration(config)
-            .UseStartup<TStartup>();
+            .UseStartup<TStartup>()
+            .UseDefaultServiceProvider(options => options.ValidateScopes = false);
 
             return new RabbitHostBuilder(webHostbuilder.Build());
         }        
