@@ -1,7 +1,5 @@
 ﻿using Finance.Common.Events.Assets;
 using Finance.Common.ServiceBus;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Finance.Api
 {

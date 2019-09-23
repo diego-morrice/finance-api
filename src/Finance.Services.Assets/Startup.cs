@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Finance.Common.Commands.Assets;
+﻿using Finance.Common.Commands.Assets;
 using Finance.Common.Commands.Infertaces;
 using Finance.Common.ServiceBus.RabbitMq.Extensions;
 using Finance.Services.Assets.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Finance.Services.Assets
 {
